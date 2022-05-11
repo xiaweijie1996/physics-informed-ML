@@ -89,23 +89,6 @@ with tf.Session() as  sess:
     print('Training Done')
     pre_mse, pre_y = sess.run([mse, y_hat], feed_dict = {x:x_test, y:y_test})
 print('Optimization Finished!')
-# print('pre_ytesr_mse = ', pre_mse)
-
-plt.figure(1)
-plt.title('loss_train')
-plt.plot(Loss_epoch_nn_t[-18000:])
-plt.show()
-plt.figure(2)
-plt.scatter(y_test,pre_y)
-plt.xlabel('y_test')
-plt.ylabel('pre_y_test')
-plt.show()
-plt.title('loss_pre')
-plt.plot(Loss_epoch_nn_p[-18000:])
-plt.show()
-plt.title('violation')
-plt.plot(violation_nn)
-plt.show()
 
 #%% 
 'normal neural network'
@@ -195,15 +178,6 @@ boundary = 101.557707
 with tf.Session() as  sess:
     sess.run(init)
     for epoch in range(2000):
-        # _, c = sess.run([train, mse], feed_dict = {x: x_train, y: y_train})
-        # Loss_epoch_nn_t.append(c)
-        # pre_mse, pre_y = sess.run([mse, y_hat], feed_dict = {x:x_test, y:y_test})
-    #     Loss_epoch_nn_p.append(pre_mse)
-    #     violation_nn.append(np.sum(pre_y>boundary)+np.sum(pre_y<-boundary))
-    #     print("Epoch %02d, Loss = %.6f" %(epoch, c))
-    # print('Training Done')
-    # pre_mse, pre_y = sess.run([mse, y_hat], feed_dict = {x:x_test, y:y_test})
-        
         _, c_pinn,loss_pinn = sess.run([train, mse, mse_pinn], feed_dict = {x: x_train, y: y_train})
         Loss_epoch_pinn_t.append(c_pinn)
         pre_mse_pinn, pre_y_pinn, mse_pinn_out = sess.run([mse, y_hat, mse_pinn], feed_dict = {x:x_test, y:y_test})
@@ -214,24 +188,6 @@ with tf.Session() as  sess:
     print('Training Done')
     pre_mse, pre_y = sess.run([mse, y_hat], feed_dict = {x:x_test, y:y_test})
 print('Optimization Finished!')
-# print('pre_ytesr_mse = ', pre_mse)
-# print('pre_ytesr_mse = ', pre_mse2)
-
-# plt.figure(1)
-plt.title('loss_train')
-plt.plot(Loss_epoch_pinn_t[-18000:])
-plt.show()
-# plt.figure(2)
-plt.scatter(y_test,pre_y)
-plt.xlabel('y_test')
-plt.ylabel('pre_y_test')
-plt.show()
-plt.title('loss_pre')
-plt.plot(Loss_epoch_pinn_p[-18000:])
-plt.show()
-plt.title('violation')
-plt.plot(violation_pinn)
-plt.show()
 
 #%%  
 plt.title('Violation of physical limitation comparison INN & PINs')
