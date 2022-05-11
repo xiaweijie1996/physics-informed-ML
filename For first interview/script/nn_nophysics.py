@@ -37,10 +37,10 @@ n_input=15
 h1=15
 h2=15
 n_output=1
-learning_rate = 0.003  #学习率
-training_epochs = 15   #用多少次训练数据 epoch
+learning_rate = 0.003  
+training_epochs = 15   
 max_epoch = 200
-display_step = 1       #没多少个epoch展示结果
+display_step = 1      
 
 x = tf.placeholder("float",[None, n_input])
 y = tf.placeholder("float",[None, n_output])
@@ -55,14 +55,12 @@ def multilayer_perceptron(x,weights,biases):
     out_layer = tf.matmul(layer_2,weights['out'] + biases['out'])
     return out_layer
 
-#权重的初始化
 weights ={
     'h1':tf.Variable(tf.random_normal([n_input, h1])),
     'h2':tf.Variable(tf.random_normal([h1, h2])),
     'out':tf.Variable(tf.random_normal([h2, n_output]))
 }
 
-#偏置的初始化
 biases = {
     'b1': tf.Variable(tf.random_normal([h1])),
     'b2': tf.Variable(tf.random_normal([h2])),
@@ -72,9 +70,7 @@ biases = {
 y_hat = multilayer_perceptron(x, weights, biases)
 cost = tf.square(y-y_hat)
 mse = tf.reduce_mean(tf.cast(cost,'float'))
-#优化器
 train = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(mse)
-#变量初始化
 init = tf.global_variables_initializer()
 
 Loss_epoch_nn_t = []
@@ -134,10 +130,10 @@ n_input=15
 h1=15
 h2=15
 n_output=1
-learning_rate = 0.003  #学习率
-training_epochs = 15   #用多少次训练数据 epoch
+learning_rate = 0.003  
+training_epochs = 15   
 max_epoch = 200
-display_step = 1       #没多少个epoch展示结果
+display_step = 1       
 lam = 1/100.0
 
 x = tf.placeholder("float",[None, n_input])
@@ -153,14 +149,11 @@ def multilayer_perceptron(x,weights,biases):
     out_layer = tf.matmul(layer_2,weights['out'] + biases['out'])
     return out_layer
 
-#权重的初始化
 weights ={
     'h1':tf.Variable(tf.random_normal([n_input, h1])),
     'h2':tf.Variable(tf.random_normal([h1, h2])),
     'out':tf.Variable(tf.random_normal([h2, n_output]))
 }
-
-#偏置的初始化
 biases = {
     'b1': tf.Variable(tf.random_normal([h1])),
     'b2': tf.Variable(tf.random_normal([h2])),
@@ -170,9 +163,7 @@ biases = {
 # y_hat = multilayer_perceptron(x, weights, biases)
 # cost = tf.square(y-y_hat)
 # mse = tf.reduce_mean(tf.cast(cost,'float'))
-# #优化器
 # train = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(mse)
-# #变量初始化
 # init = tf.global_variables_initializer()
 'physical rules'
 p_simulation1 = tf.multiply(tf.constant(0.0014),tf.pow(y,6))
@@ -194,9 +185,7 @@ cost = tf.square(y-y_hat)
 cost_pinn = tf.add(tf.square(y-y_hat),physical_correction)
 mse = tf.reduce_mean(tf.cast(cost,'float'))
 mse_pinn = tf.reduce_mean(tf.cast(cost_pinn,'float'))
-#优化器
 train = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(mse_pinn)
-#变量初始化
 init = tf.global_variables_initializer()
 
 Loss_epoch_pinn_t = []
